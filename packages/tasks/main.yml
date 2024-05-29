@@ -1,2 +1,8 @@
 ---
-# tasks file for packages
+- name: Install htop and python3-pip
+  package:
+    name:
+      - htop
+      - python3-pip
+    state: present
+
