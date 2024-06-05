@@ -1,0 +1,21 @@
+# tasks/main.yml
+
+- name: Install pip packages
+  pip:
+    name:
+      - docker-compose
+      - "docker<7.0"
+    state: present
+
+- name: Clone the repository
+  git:
+    repo: "{{ git_repository }}"
+    dest: "{{ deployment_path }}"
+    version: "{{ git_branch }}"
+    force: yes
+
+- name: Run docker-compose
+  community.docker.docker_compose:
+    project_src: "{{ deployment_path }}"
+    build: yes
+    state: present
