@@ -1,11 +1,23 @@
 # tasks/main.yml
 
-- name: Install pip packages
-  pip:
+- name: Install system packages
+  apt:
     name:
-      - docker-compose
-      - "docker<7.0"
+      - docker.io
+      - python3-pip
     state: present
+    update_cache: yes
+
+- name: Install docker-compose using pip
+  pip:
+    name: docker-compose
+    state: present
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
 
 - name: Clone the repository
   git:
@@ -19,3 +31,4 @@
     project_src: "{{ deployment_path }}"
     build: yes
     state: present
+
