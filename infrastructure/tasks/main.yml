@@ -1,5 +1,11 @@
 # tasks/main.yml
 
+- name: Remove conflicting packages
+  apt:
+    name: containerd
+    state: absent
+  ignore_errors: yes
+
 - name: Install system packages
   apt:
     name:
@@ -31,4 +37,3 @@
     project_src: "{{ deployment_path }}"
     build: yes
     state: present
-
