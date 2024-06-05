@@ -1,29 +1,11 @@
 # tasks/main.yml
 
-- name: Remove conflicting packages
-  apt:
-    name: containerd
-    state: absent
-  ignore_errors: yes
-
-- name: Install system packages
-  apt:
-    name:
-      - docker.io
-      - python3-pip
-    state: present
-    update_cache: yes
-
-- name: Install docker-compose using pip
+- name: Install pip packages
   pip:
-    name: docker-compose
+    name:
+      - docker-compose
+      - "docker<7.0"
     state: present
-
-- name: Start Docker service
-  service:
-    name: docker
-    state: started
-    enabled: yes
 
 - name: Clone the repository
   git:
