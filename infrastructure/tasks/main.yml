@@ -3,9 +3,9 @@
 - name: Install pip packages
   pip:
     name:
+      - requests==2.31.0
       - docker-compose
-      - "docker<7.0"
-    state: present
+      - docker<7.0
 
 - name: Clone the repository
   git:
@@ -15,7 +15,6 @@
     force: yes
 
 - name: Run docker-compose
-  community.docker.docker_compose:
+  docker_compose:
     project_src: "{{ deployment_path }}"
     build: yes
-    state: present
